@@ -260,12 +260,12 @@ export const FisioResult: React.FC = () => {
       </div>
       <div style={{ position: "absolute", left: 40, top: 560, translate: `${io(f, [0, 20], [-200, 0])}px 0px`, opacity: io(f, [0, 12], [0, 1]) }}>
         <Browser w={860} h={600}>
-          <SiteMock biz={FISIO} accent={TEAL} headFont={SERIF} mode="desktop" scroll={io(f, [30, 110], [0, 180], ease)} />
+          <SiteMock biz={FISIO} accent={TEAL} headFont={SERIF} mode="desktop" scroll={io(f, [30, 110], [0, 620], ease)} />
         </Browser>
       </div>
       <div style={{ position: "absolute", left: 600, top: io(f, [6, 30], [1920, 900]) }}>
         <Phone w={400}>
-          <SiteMock biz={FISIO} accent={TEAL} headFont={SERIF} scroll={io(f, [24, 110], [0, 700], ease)} />
+          <SiteMock biz={FISIO} accent={TEAL} headFont={SERIF} scroll={io(f, [24, 115], [0, 1650], ease)} />
         </Phone>
       </div>
     </AbsoluteFill>

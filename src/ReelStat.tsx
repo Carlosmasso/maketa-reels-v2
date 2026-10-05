@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { C, SANS, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
+import { C, SANS, MONO, Header, Kicker, Rise, EndCard, io } from "./brand";
+import { Reel, Scene, reelDuration } from "./reel";
 
 const TAG = "EL DATO";
 

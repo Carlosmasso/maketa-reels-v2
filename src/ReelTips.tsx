@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
-import { C, SANS, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration } from "./brand";
+import { C, SANS, MONO, Header, Kicker, Rise, EndCard, } from "./brand";
+import { Reel, Scene, reelDuration } from "./reel";
 
 const TAG = "GUÁRDALO";
 
@@ -24,19 +25,21 @@ export const EJEMPLO_TIPS: TipsConfig = {
   question: "¿Cuál de los tres tiene tu web? Dímelo en comentarios.",
 };
 
-const Hook: React.FC<{ c: TipsConfig }> = ({ c }) => (
+const Hook: React.FC<{ c: TipsConfig }> = ({ c }) => {
+  return (
   <AbsoluteFill style={{ background: C.dark, padding: "0 80px", justifyContent: "center" }}>
     <Header tag={TAG} dark />
     <Rise at={0}>
       <Kicker color={C.blueSoft}>{c.kicker}</Kicker>
     </Rise>
-    <Rise at={5}>
+    <Rise at={10}>
       <div style={{ fontFamily: SANS, fontSize: 136, fontWeight: 800, lineHeight: 1.0, letterSpacing: -3, color: C.white, marginTop: 24 }}>
         {c.hook}
       </div>
     </Rise>
   </AbsoluteFill>
-);
+  );
+};
 
 const Tip: React.FC<{ n: number; total: number; t: string; d: string }> = ({ n, total, t, d }) => (
   <AbsoluteFill style={{ background: n % 2 ? C.white : C.bg, padding: "0 80px", justifyContent: "center" }}>

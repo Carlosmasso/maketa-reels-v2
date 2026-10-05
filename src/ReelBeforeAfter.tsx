@@ -1,7 +1,10 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { C, SANS, SERIF, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration, io, ease } from "./brand";
+import { C, SANS, SERIF, MONO, Header, Kicker, Rise, EndCard, io, ease } from "./brand";
+import { Reel, Scene, reelDuration } from "./reel";
 import { Biz, Phone, SiteMock } from "./SiteMock";
+import { Person } from "./people";
+import { BrollBg, brollFor } from "./media";
 
 const TAG = "ANTES / DESPUÉS";
 
@@ -10,9 +13,11 @@ export type BeforeAfterConfig = {
   accent: string;
   hook: string;
   beforeFlaws: string[];
-  metric: string;
-  metricLabel: string;
+  metric?: string;
+  metricLabel?: string;
   cta: string;
+  host?: Person;
+  broll?: string;
 };
 
 export const EJEMPLO_BEFOREAFTER: BeforeAfterConfig = {
@@ -37,19 +42,23 @@ export const EJEMPLO_BEFOREAFTER: BeforeAfterConfig = {
   cta: "¿Tu web vende o solo existe?",
 };
 
-const Hook: React.FC<{ c: BeforeAfterConfig }> = ({ c }) => (
-  <AbsoluteFill style={{ background: C.bg, padding: "0 80px", justifyContent: "center" }}>
-    <Header tag={TAG} />
-    <Rise at={0}>
-      <Kicker color={c.accent}>{c.biz.kicker}</Kicker>
-    </Rise>
-    <Rise at={5}>
-      <div style={{ fontFamily: SANS, fontSize: 130, fontWeight: 800, lineHeight: 1.0, letterSpacing: -3, color: C.dark, marginTop: 24 }}>
-        {c.hook}
-      </div>
-    </Rise>
-  </AbsoluteFill>
-);
+const Hook: React.FC<{ c: BeforeAfterConfig }> = ({ c }) => {
+  const clip = c.broll ? brollFor(c.broll) : undefined;
+  return (
+    <AbsoluteFill style={{ background: C.bg, padding: "0 80px", justifyContent: "center" }}>
+      {clip ? <BrollBg src={clip} /> : null}
+      <Header tag={TAG} dark={!!clip} />
+      <Rise at={0}>
+        <Kicker color={clip ? C.blueSoft : c.accent}>{c.biz.kicker}</Kicker>
+      </Rise>
+      <Rise at={5}>
+        <div style={{ fontFamily: SANS, fontSize: 162, fontWeight: 800, lineHeight: 1.0, letterSpacing: -3, color: clip ? C.white : C.dark, marginTop: 24 }}>
+          {c.hook}
+        </div>
+      </Rise>
+    </AbsoluteFill>
+  );
+};
 
 const OldSite: React.FC = () => (
   <div style={{ background: "#EDEDED", width: "100%", height: "100%", padding: "80px 28px", fontFamily: "Times New Roman, serif" }}>
@@ -99,7 +108,7 @@ const After: React.FC<{ c: BeforeAfterConfig }> = ({ c }) => {
       </div>
       <div style={{ position: "absolute", left: 250, top: io(f, [0, 24], [1920, 360]) }}>
         <Phone w={580}>
-          <SiteMock biz={c.biz} accent={c.accent} headFont={SERIF} scroll={io(f, [30, 110], [0, 650], ease)} />
+          <SiteMock biz={c.biz} accent={c.accent} headFont={SERIF} scroll={io(f, [24, 125], [0, 1550], ease)} />
         </Phone>
       </div>
     </AbsoluteFill>
@@ -121,12 +130,12 @@ const Impact: React.FC<{ c: BeforeAfterConfig }> = ({ c }) => (
 const scenes = (c: BeforeAfterConfig): Scene[] => [
   { name: "Hook", dur: 70, el: <Hook c={c} /> },
   { name: "Antes", dur: 110, el: <Before c={c} /> },
-  { name: "Después", dur: 130, el: <After c={c} /> },
-  { name: "Impacto", dur: 85, el: <Impact c={c} /> },
+  { name: "Después", dur: c.host ? 160 : 130, el: <After c={c} />, via: c.host },
+  ...(c.metric ? [{ name: "Impacto", dur: 85, el: <Impact c={c} /> }] : []),
   { name: "Cierre", dur: 110, el: <EndCard title={c.cta} sub="Diseña la nueva gratis, sin registro." /> },
 ];
 
-export const BEFOREAFTER_DURATION = reelDuration(scenes(EJEMPLO_BEFOREAFTER));
+export const beforeAfterDuration = (c: BeforeAfterConfig) => reelDuration(scenes(c));
 
 export const ReelBeforeAfter: React.FC<{ config: BeforeAfterConfig }> = ({ config }) => (
   <Reel scenes={scenes(config)} />

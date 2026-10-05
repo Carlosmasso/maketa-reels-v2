@@ -79,12 +79,12 @@ export const PrecioShow: React.FC = () => {
       </div>
       <div style={{ position: "absolute", left: 40, top: 640, opacity: io(f, [0, 12], [0, 1]), translate: `${io(f, [0, 20], [-160, 0])}px 0px` }}>
         <Browser w={880} h={600}>
-          <SiteMock biz={LUA} accent={GOLD} headFont={SERIF} mode="desktop" scroll={io(f, [30, 150], [0, 220], ease)} />
+          <SiteMock biz={LUA} accent={GOLD} headFont={SERIF} mode="desktop" scroll={io(f, [30, 150], [0, 640], ease)} />
         </Browser>
       </div>
       <div style={{ position: "absolute", left: 610, top: io(f, [10, 34], [1920, 1000]) }}>
         <Phone w={390}>
-          <SiteMock biz={LUA} accent={GOLD} headFont={SERIF} scroll={io(f, [30, 150], [0, 760], ease)} />
+          <SiteMock biz={LUA} accent={GOLD} headFont={SERIF} scroll={io(f, [30, 150], [0, 1750], ease)} />
         </Phone>
       </div>
     </AbsoluteFill>

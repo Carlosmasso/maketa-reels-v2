@@ -1,6 +1,9 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { C, SANS, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
+import { C, SANS, MONO, Header, Kicker, Rise, EndCard, io } from "./brand";
+import { Reel, Scene, reelDuration } from "./reel";
+import { Avatar, Person } from "./people";
+import { BrollBg, brollFor } from "./media";
 
 const TAG = "CASO REAL";
 
@@ -13,8 +16,9 @@ export type TestimonialConfig = {
   metricSuffix: string;
   metricLabel: string;
   quote: string;
-  author: string;
+  person: Person;
   cta: string;
+  broll?: string;
 };
 
 // Placeholder: replace with a real client before publishing (fake reviews are illegal in the EU)
@@ -27,23 +31,28 @@ export const EJEMPLO_TESTIMONIAL: TestimonialConfig = {
   metricSuffix: "%",
   metricLabel: "de las ventas ya llegan desde la web",
   quote: "Ahora el catálogo trabaja por mí mientras atiendo la tienda.",
-  author: "Laura · Boutique Verde",
+  person: { name: "Laura Gil", role: "Boutique Verde", accent: "#E2725B" },
   cta: "¿Tu negocio sigue vendiendo por DM?",
+  broll: "boutique",
 };
 
-const Hook: React.FC<{ c: TestimonialConfig }> = ({ c }) => (
-  <AbsoluteFill style={{ background: C.bg, padding: "0 80px", justifyContent: "center" }}>
-    <Header tag={TAG} />
-    <Rise at={0}>
-      <Kicker color={c.accent}>{c.sector}</Kicker>
-    </Rise>
-    <Rise at={5}>
-      <div style={{ fontFamily: SANS, fontSize: 120, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3, color: C.dark, marginTop: 24 }}>
-        {c.hook}
-      </div>
-    </Rise>
-  </AbsoluteFill>
-);
+const Hook: React.FC<{ c: TestimonialConfig }> = ({ c }) => {
+  const clip = c.broll ? brollFor(c.broll) : undefined;
+  return (
+    <AbsoluteFill style={{ background: C.bg, padding: "0 80px", justifyContent: "center" }}>
+      {clip ? <BrollBg src={clip} /> : null}
+      <Header tag={TAG} dark={!!clip} />
+      <Rise at={0}>
+        <Kicker color={clip ? C.blueSoft : c.accent}>{c.sector}</Kicker>
+      </Rise>
+      <Rise at={5}>
+        <div style={{ fontFamily: SANS, fontSize: 120, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3, color: clip ? C.white : C.dark, marginTop: 24 }}>
+          {c.hook}
+        </div>
+      </Rise>
+    </AbsoluteFill>
+  );
+};
 
 const Before: React.FC<{ c: TestimonialConfig }> = ({ c }) => (
   <AbsoluteFill style={{ background: C.white, padding: "0 80px", justifyContent: "center" }}>
@@ -85,16 +94,22 @@ const Quote: React.FC<{ c: TestimonialConfig }> = ({ c }) => (
       </div>
     </Rise>
     <Rise at={14}>
-      <div style={{ fontFamily: SANS, fontSize: 40, fontWeight: 700, color: c.accent, marginTop: 40 }}>— {c.author}</div>
+      <div style={{ display: "flex", alignItems: "center", gap: 28, marginTop: 50 }}>
+        <Avatar person={c.person} size={120} />
+        <div style={{ fontFamily: SANS }}>
+          <div style={{ fontSize: 44, fontWeight: 800, color: C.dark }}>{c.person.name}</div>
+          <div style={{ fontSize: 34, fontWeight: 500, color: c.accent }}>{c.person.role}</div>
+        </div>
+      </div>
     </Rise>
   </AbsoluteFill>
 );
 
 const scenes = (c: TestimonialConfig): Scene[] => [
-  { name: "Hook", dur: 75, el: <Hook c={c} /> },
+  { name: "Hook", dur: c.broll && brollFor(c.broll) ? 95 : 75, el: <Hook c={c} /> },
   { name: "Antes", dur: 100, el: <Before c={c} /> },
   { name: "Resultado", dur: 100, el: <Result c={c} /> },
-  { name: "Cita", dur: 110, el: <Quote c={c} /> },
+  { name: "Cita", dur: 150, el: <Quote c={c} />, via: c.person },
   { name: "Cierre", dur: 110, el: <EndCard title={c.cta} sub="Diseña tu web gratis, sin registro." /> },
 ];
 

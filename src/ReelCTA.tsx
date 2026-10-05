@@ -1,6 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { C, SANS, Header, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
+import { C, SANS, Header, Rise, EndCard, io } from "./brand";
+import { Reel, Scene, reelDuration } from "./reel";
 
 export type CTAConfig = {
   lines: string[];

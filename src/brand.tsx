@@ -10,8 +10,6 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { TransitionSeries, linearTiming } from "@remotion/transitions";
-import { fade } from "@remotion/transitions/fade";
 
 const inter = cargarInter("normal", { weights: ["400", "500", "600", "700", "800"], subsets: ["latin"] });
 const fraunces = cargarFraunces("normal", { weights: ["400", "600", "700"], subsets: ["latin"] });
@@ -31,34 +29,6 @@ export const C = {
 export const SANS = `${inter.fontFamily}, sans-serif`;
 export const SERIF = `${fraunces.fontFamily}, serif`;
 export const MONO = `${mono.fontFamily}, monospace`;
-
-export const FADE = 10;
-
-export type Scene = { name: string; dur: number; el: React.ReactNode };
-
-// Duration accounts for the overlap of each fade between scenes
-export const reelDuration = (scenes: Scene[]) =>
-  scenes.reduce((s, x) => s + x.dur, 0) - FADE * (scenes.length - 1);
-
-export const Reel: React.FC<{ scenes: Scene[] }> = ({ scenes }) => (
-  <TransitionSeries>
-    {scenes.flatMap((s, i) => [
-      ...(i > 0
-        ? [<TransitionSeries.Transition key={`t${i}`} presentation={fade()} timing={linearTiming({ durationInFrames: FADE })} />]
-        : []),
-      <TransitionSeries.Sequence
-        key={s.name}
-        name={s.name}
-        durationInFrames={s.dur}
-        style={{
-          translate: "-3px 0px"
-        }}
-      >
-        {s.el}
-      </TransitionSeries.Sequence>,
-    ])}
-  </TransitionSeries>
-);
 
 export const easeOut = Easing.bezier(0.16, 1, 0.3, 1);
 export const ease = Easing.bezier(0.65, 0, 0.35, 1);
