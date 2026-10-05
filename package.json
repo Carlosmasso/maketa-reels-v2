@@ -27,6 +27,7 @@
     "upgrade": "remotion upgrade",
     "lint": "eslint src && tsc",
     "broll": "node scripts/broll.mjs",
-    "publicar": "node scripts/publicar.mjs"
+    "publicar": "node scripts/publicar.mjs",
+    "carrusel": "node scripts/carrusel.mjs"
   }
 }

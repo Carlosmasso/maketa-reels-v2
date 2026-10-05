@@ -1,4 +1,4 @@
-// Exports, per reel, everything to post on Instagram: out/<id>/<id>.mp4 + portada.png + caption.txt
+// Exports, per reel, everything to post on Instagram: out/reels/<id>/<id>.mp4 + portada.png + caption.txt
 // Usage: pnpm publicar [id...] [--sin-video]   (ids as in Remotion Studio, e.g. ReelTips BA-Taller)
 import { execFileSync } from "node:child_process";
 import { mkdir, writeFile } from "node:fs/promises";
@@ -16,9 +16,9 @@ for (const id of ids) {
     console.warn(`${id}: sin caption en src/captions.ts`);
     continue;
   }
-  await mkdir(`out/${id}`, { recursive: true });
-  await writeFile(`out/${id}/caption.txt`, CAPTIONS[id] + "\n");
-  run(["still", "out/.bundle", `Portada-${id}`, `out/${id}/portada.png`, "--log=error"]);
-  if (conVideo) run(["render", "out/.bundle", id, `out/${id}/${id}.mp4`, "--codec=h264", "--crf=18", "--log=error"]);
+  await mkdir(`out/reels/${id}`, { recursive: true });
+  await writeFile(`out/reels/${id}/caption.txt`, CAPTIONS[id] + "\n");
+  run(["still", "out/.bundle", `Portada-${id}`, `out/reels/${id}/portada.png`, "--log=error"]);
+  if (conVideo) run(["render", "out/.bundle", id, `out/reels/${id}/${id}.mp4`, "--codec=h264", "--crf=18", "--log=error"]);
   console.log(`${id}: ${conVideo ? `${id}.mp4 + ` : ""}portada.png + caption.txt`);
 }

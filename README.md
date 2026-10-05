@@ -32,13 +32,33 @@ pnpm publicar --sin-video          # solo portadas y textos (rápido)
 Cada reel queda listo para subir en su carpeta:
 
 ```
-out/ReelTips/
+out/reels/ReelTips/
 ├── ReelTips.mp4   vídeo 1080×1920, 30 fps, H.264
 ├── portada.png    portada (el texto cabe en el recorte 3:4 del perfil)
 └── caption.txt    pie de foto con hashtags
 ```
 
 `out/` no se sube a git: los textos y las portadas viven en `src/`.
+
+## Carruseles
+
+```console
+pnpm carrusel                  # todos
+pnpm carrusel web-que-vende    # solo ese
+```
+
+Genera `out/carruseles/<id>/01.png, 02.png…` (1080×1350, formato 4:5) y `caption.txt`. Cada carrusel se define en [src/carruseles.ts](src/carruseles.ts) como una lista de diapositivas:
+
+| Tipo | Para qué |
+|---|---|
+| `portada` | Primera diapositiva: etiqueta y titular con una parte resaltada |
+| `punto` | Consejo numerado automáticamente (01, 02…) con título y explicación |
+| `dato` | Cifra grande con su fuente |
+| `lista` | Título y lista con checks |
+| `vs` | Comparativa en dos columnas |
+| `cierre` | Llamada a la acción con maketa.es y pregunta para comentarios |
+
+La portada usa el color de acento del carrusel, el cierre el azul de maketa y las del medio alternan claro y oscuro. Todas llevan contador, barra de progreso y "Desliza". En el Studio están en la carpeta *Carruseles*.
 
 ## Tipos de reel
 
@@ -96,5 +116,6 @@ Todo está en [src/brand.tsx](src/brand.tsx):
 |---|---|
 | `pnpm dev` | Abre Remotion Studio |
 | `pnpm publicar` | Exporta vídeo, portada y pie de foto |
+| `pnpm carrusel` | Exporta los carruseles (imágenes y pie de foto) |
 | `pnpm broll` | Descarga los vídeos de fondo de Pexels |
 | `pnpm lint` | Revisa tipos y estilo del código |

@@ -10,6 +10,8 @@ import { ReelPersona, personaDuration } from "./ReelPersona";
 import { CASOS_BEFOREAFTER, CASOS_PERSONA, CASOS_TIPS } from "./casos";
 import { Portada } from "./Portada";
 import { PORTADAS } from "./portadas";
+import { Carrusel, CARRUSEL_SIZE } from "./Carrusel";
+import { CARRUSELES } from "./carruseles";
 
 const V = { fps: 30, width: 1080, height: 1920 };
 
@@ -51,6 +53,11 @@ export const RemotionRoot: React.FC = () => (
     <Folder name="Personas">
       {CASOS_PERSONA.map(({ id, config }) => (
         <Composition key={id} id={id} component={ReelPersona} durationInFrames={personaDuration(config)} defaultProps={{ config }} {...V} />
+      ))}
+    </Folder>
+    <Folder name="Carruseles">
+      {Object.entries(CARRUSELES).map(([id, data]) => (
+        <Composition key={id} id={`Carrusel-${id}`} component={Carrusel} durationInFrames={data.slides.length} fps={1} defaultProps={{ data }} {...CARRUSEL_SIZE} />
       ))}
     </Folder>
     <Folder name="Portadas">
