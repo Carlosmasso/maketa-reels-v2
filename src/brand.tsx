@@ -6,14 +6,15 @@ import {
   AbsoluteFill,
   Easing,
   interpolate,
+  spring,
   useCurrentFrame,
+  useVideoConfig,
 } from "remotion";
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 
 const inter = cargarInter("normal", { weights: ["400", "500", "600", "700", "800"], subsets: ["latin"] });
 const fraunces = cargarFraunces("normal", { weights: ["400", "600", "700"], subsets: ["latin"] });
-cargarFraunces("italic", { weights: ["400"], subsets: ["latin"] });
 const mono = cargarMono("normal", { weights: ["500", "700"], subsets: ["latin"] });
 
 export const C = {
@@ -29,7 +30,6 @@ export const C = {
 
 export const SANS = `${inter.fontFamily}, sans-serif`;
 export const SERIF = `${fraunces.fontFamily}, serif`;
-export const HEADLINE = SERIF;
 export const MONO = `${mono.fontFamily}, monospace`;
 
 export const FADE = 10;
@@ -46,7 +46,14 @@ export const Reel: React.FC<{ scenes: Scene[] }> = ({ scenes }) => (
       ...(i > 0
         ? [<TransitionSeries.Transition key={`t${i}`} presentation={fade()} timing={linearTiming({ durationInFrames: FADE })} />]
         : []),
-      <TransitionSeries.Sequence key={s.name} name={s.name} durationInFrames={s.dur}>
+      <TransitionSeries.Sequence
+        key={s.name}
+        name={s.name}
+        durationInFrames={s.dur}
+        style={{
+          translate: "-3px 0px"
+        }}
+      >
         {s.el}
       </TransitionSeries.Sequence>,
     ])}
@@ -115,7 +122,7 @@ export const LogoMark: React.FC<{ size?: number; color?: string; bg?: string }> 
 );
 
 /** Top bar shared by every reel: logo left, series tag right */
-export const Header: React.FC<{ tag: string; dark?: boolean }> = ({ tag, dark }) => (
+export const Header: React.FC<{ tag?: string; dark?: boolean }> = ({ tag = "", dark }) => (
   <div
     style={{
       position: "absolute",
@@ -214,6 +221,40 @@ export const Cursor: React.FC<{
   );
 };
 
+/** maketa icon assembling itself: outline draws, then each block drops into place */
+export const LogoBuild: React.FC<{ size?: number; at?: number; color?: string }> = ({ size = 240, at = 0, color = C.white }) => {
+  const f = useCurrentFrame() - at;
+  const { fps } = useVideoConfig();
+  const outline = io(f, [0, 20], [0, 1], ease);
+  const block = (delay: number) => spring({ frame: f - delay, fps, config: { damping: 12, stiffness: 160, mass: 0.6 } });
+  const blocks = [
+    { x: 6, y: 6.5, w: 12, h: 3.5, o: 1, d: 14 },
+    { x: 6, y: 12.5, w: 5, h: 5, o: 1, d: 21 },
+    { x: 13, y: 12.5, w: 5, h: 5, o: 0.6, d: 28 },
+  ];
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" style={{ overflow: "visible" }}>
+      <rect x="2" y="2" width="20" height="20" rx="5" fill="none" stroke={color} strokeWidth="2.6" pathLength={1} strokeDasharray="1" strokeDashoffset={1 - outline} strokeLinecap="round" />
+      {blocks.map((b) => {
+        const p = block(b.d);
+        return (
+          <rect
+            key={b.d}
+            x={b.x}
+            y={b.y}
+            width={b.w}
+            height={b.h}
+            rx="1.2"
+            fill={color}
+            opacity={b.o * Math.min(1, p * 2)}
+            style={{ transformBox: "fill-box", transformOrigin: "center", transform: `translateY(${(1 - p) * -6}px) scale(${0.4 + 0.6 * p})` }}
+          />
+        );
+      })}
+    </svg>
+  );
+};
+
 /** Shared closing card */
 export const EndCard: React.FC<{ title: string; sub: string; question?: string }> = ({
   title,
@@ -231,16 +272,17 @@ export const EndCard: React.FC<{ title: string; sub: string; question?: string }
         justifyContent: "center",
       }}
     >
-      <Header tag="" dark />
-      <Rise at={4}>
-        <div style={{ fontSize: 120, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3 }}>
+      <LogoBuild size={220} />
+      <div style={{ height: 70 }} />
+      <Rise at={28}>
+        <div style={{ fontSize: 120, fontFamily: SANS, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3 }}>
           {title}
         </div>
       </Rise>
-      <Rise at={12}>
+      <Rise at={36}>
         <div style={{ fontSize: 48, fontWeight: 500, marginTop: 30, color: C.blueSoft }}>{sub}</div>
       </Rise>
-      <Rise at={20}>
+      <Rise at={44}>
         <div
           style={{
             marginTop: 70,
@@ -253,14 +295,14 @@ export const EndCard: React.FC<{ title: string; sub: string; question?: string }
             padding: "30px 52px",
             fontSize: 54,
             fontWeight: 800,
-            scale: io(f, [40, 48, 56], [1, 1.06, 1], ease),
+            scale: io(f, [64, 72, 80], [1, 1.06, 1], ease),
           }}
         >
           maketa.es
         </div>
       </Rise>
       {question ? (
-        <Rise at={34} style={{ position: "absolute", bottom: 210, left: 80, right: 80 }}>
+        <Rise at={58} style={{ position: "absolute", bottom: 210, left: 80, right: 80 }}>
           <div
             style={{
               borderTop: `3px solid rgba(255,255,255,.25)`,

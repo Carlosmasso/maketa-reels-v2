@@ -3,7 +3,7 @@ import { AbsoluteFill, interpolateColors, useCurrentFrame } from "remotion";
 import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { fade } from "@remotion/transitions/fade";
 import { slide } from "@remotion/transitions/slide";
-import { C, SANS, SERIF, Header, LogoMark, Rise, ease, io } from "./brand";
+import { C, MONO, SANS, SERIF, Header, LogoBuild, LogoMark, Rise, ease, io } from "./brand";
 import { Biz, Browser, Phone, SiteMock } from "./SiteMock";
 
 const TAG = "DISEÑADA EN MAKETA";
@@ -32,12 +32,13 @@ export const PrecioHook: React.FC = () => {
       <Header tag="" dark />
       <div style={{ position: "absolute", top: 300, left: 80, right: 80 }}>
         <Rise at={0}>
-          <div style={{ fontSize: 110, fontWeight: 800, letterSpacing: -3 }}>¿Pagarías</div>
+          <div style={{ fontSize: 110, fontFamily: SANS, fontWeight: 800, letterSpacing: -3 }}>¿Pagarías</div>
         </Rise>
         <div
           style={{
             fontSize: 290,
-            fontWeight: 800,
+            fontFamily: MONO,
+            fontWeight: 700,
             letterSpacing: -12,
             lineHeight: 1,
             color: BRIGHT,
@@ -49,7 +50,7 @@ export const PrecioHook: React.FC = () => {
           249 €
         </div>
         <Rise at={12}>
-          <div style={{ fontSize: 110, fontWeight: 800, letterSpacing: -3 }}>por esta web?</div>
+          <div style={{ fontSize: 110, fontFamily: SANS, fontWeight: 800, letterSpacing: -3 }}>por esta web?</div>
         </Rise>
       </div>
       <div style={{ position: "absolute", left: 250, top: io(f, [18, 52], [1920, 1150]) }}>
@@ -71,7 +72,7 @@ export const PrecioShow: React.FC = () => {
           <div style={{ fontSize: 40, fontWeight: 700, color: C.grey }}>Restaurante · Casa Lúa</div>
         </Rise>
         <Rise at={6}>
-          <div style={{ fontSize: 92, fontWeight: 800, letterSpacing: -3, lineHeight: 1.05, color: C.dark, marginTop: 10 }}>
+          <div style={{ fontSize: 92, fontFamily: SANS, fontWeight: 800, letterSpacing: -3, lineHeight: 1.05, color: C.dark, marginTop: 10 }}>
             Reservas online, carta y menú del día.
           </div>
         </Rise>
@@ -105,6 +106,7 @@ export const PrecioClaims: React.FC = () => {
             <div
               style={{
                 fontSize: 104,
+                fontFamily: SANS,
                 fontWeight: 800,
                 letterSpacing: -3,
                 lineHeight: 1.15,
@@ -124,29 +126,31 @@ export const PrecioEnd: React.FC = () => {
   const f = useCurrentFrame();
   return (
     <AbsoluteFill style={{ background: C.blue, fontFamily: SANS, color: "#fff", justifyContent: "center", padding: "0 80px" }}>
-      <Header tag="" dark />
-      <Rise at={2}>
+      <LogoBuild size={180} />
+      <div style={{ height: 60 }} />
+      <Rise at={26}>
         <div style={{ fontSize: 64, fontWeight: 700, color: C.blueSoft }}>Webs desde</div>
       </Rise>
       <div
         style={{
           fontSize: 300,
-          fontWeight: 800,
+          fontFamily: MONO,
+          fontWeight: 700,
           letterSpacing: -12,
           lineHeight: 1,
-          opacity: io(f, [6, 12], [0, 1]),
-          scale: io(f, [6, 22], [1.2, 1]),
+          opacity: io(f, [30, 36], [0, 1]),
+          scale: io(f, [30, 46], [1.2, 1]),
           transformOrigin: "left center",
         }}
       >
         249 €
       </div>
-      <Rise at={18}>
+      <Rise at={42}>
         <div style={{ fontSize: 50, fontWeight: 500, marginTop: 30, color: C.blueSoft }}>
           Diséñala gratis, sin registro.
         </div>
       </Rise>
-      <Rise at={26}>
+      <Rise at={50}>
         <div
           style={{
             marginTop: 60,
@@ -159,7 +163,7 @@ export const PrecioEnd: React.FC = () => {
             padding: "26px 46px 26px 30px",
             fontSize: 54,
             fontWeight: 800,
-            scale: io(f, [50, 58, 66], [1, 1.06, 1], ease),
+            scale: io(f, [74, 82, 90], [1, 1.06, 1], ease),
           }}
         >
           <LogoMark size={64} />

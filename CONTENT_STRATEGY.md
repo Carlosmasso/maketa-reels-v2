@@ -210,31 +210,23 @@ CTA (18-22s)
 - **Coral:** `#E2725B` (energía, startups)
 - **Verde:** Próximamente
 
-### TIPOGRAFÍA (Stacks)
-**Import:**
-```typescript
-import { loadFont as cargarInter } from '@remotion/google-fonts/Inter'
-import { loadFont as cargarFraunces } from '@remotion/google-fonts/Fraunces'
-import { loadFont as cargarMono } from '@remotion/google-fonts/JetBrainsMono'
-```
+### TIPOGRAFÍA
+Definida en `src/brand.tsx`. Usa siempre las constantes, nunca nombres de fuente a mano:
 
-**Uso específico:**
-| Elemento | Font | Weight | Size | Cuándo |
+| Constante | Fuente | Peso | Uso | Ejemplo |
 |---|---|---|---|---|
-| Headlines principales | Fraunces | 700/800 | 96-300px | "¿Pagarías 249€?" / "No es una plantilla" |
-| Números grandes | Fraunces | 800 | 200-290px | Precios, estadísticas grandes |
-| Cuerpo/Copy | Inter | 500/600 | 40-56px | Mensajes, claim, descripción |
-| Subtítulo | Inter | 400 | 26-36px | Contexto, pequeño copy |
-| Precios/Técnico | JetBrainsMono | 600 | 40-64px | "249€", features, código |
-| Datos/Stats | JetBrainsMono | 600 | 48-120px | "80% de clientes", metrics |
-| Tags/Labels | Inter | 700 | 20-28px | "DISEÑADA EN MAKETA", series labels |
+| `SANS` | Inter | 800 | Titulares (90-140px, letterSpacing -3) | "¿Pagarías…" / "No es una plantilla." |
+| `SANS` | Inter | 500-600 | Textos secundarios, explicaciones (40-64px) | Descripción de un tip |
+| `SANS` | Inter | 700-800 | Kickers, etiquetas, botones, logotipo (26-54px) | "CASO REAL" / "maketa.es" |
+| `MONO` | JetBrains Mono | 700 | Precios, cifras, numeración (200-380px) | "249 €" / "53%" / "01 / 03" |
+| `SERIF` | Fraunces | — | **Solo** dentro de maquetas de web de cliente (`SiteMock`) | Paso "Tipografía" de ReelFisio |
 
-**Filosofía:**
-- **Fraunces** = Emocional, premium, personality (diferencia vs competencia)
-- **Inter** = Accesible, neutral, legible (confianza profesional)
-- **JetBrainsMono** = Credibilidad técnica, precisión (números importan)
+**Por qué así:** Inter da una voz única, limpia y legible en el móvil. La Mono se reserva para los números, de modo que precios y resultados destacan como "dato" y transmiten precisión.
 
-**Regla:** Cada reel puede tener su accent color, pero header y cierre usan Fraunces headline + Inter para contexto.
+**Reglas:**
+- Todo el texto en Inter; la Mono solo si el contenido es un número, un precio o una numeración.
+- Titulares de máximo 3 líneas: si no cabe, recorta el copy antes que bajar el tamaño.
+- Cada reel puede tener su color de acento; cabecera y cierre usan siempre el azul de maketa.
 
 ---
 
@@ -295,7 +287,7 @@ import { loadFont as cargarMono } from '@remotion/google-fonts/JetBrainsMono'
 - [ ] **Mobile:** ¿Se lee bien en iPhone 12 (1080x1920)?
 - [ ] **Pacing:** ¿Hay moments de respiro? (no todo rápido)
 - [ ] **Color:** ¿Cumple con contrast ratio 4.5:1 (WCAG)?
-- [ ] **Tipografía:** ¿Serif e sans están bien diferenciadas?
+- [ ] **Tipografía:** ¿Todo en Inter, cifras y precios en Mono, ningún titular de más de 3 líneas?
 - [ ] **Duración:** ¿Dentro del rango recomendado para este tipo?
 - [ ] **Datos:** ¿Todos los números/hechos son correctos?
 - [ ] **CTA Secundario:** ¿Está en el EndCard (maketa.es)?

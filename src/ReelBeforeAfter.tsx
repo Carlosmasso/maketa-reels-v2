@@ -17,20 +17,20 @@ export type BeforeAfterConfig = {
 
 export const EJEMPLO_BEFOREAFTER: BeforeAfterConfig = {
   biz: {
-    name: "Obrador Ana",
-    kicker: "Panadería artesana",
-    headline: "Pan de masa madre, cada mañana.",
-    sub: "Encarga online y recoge en tienda sin colas.",
-    cta: "Hacer pedido",
+    name: "Clínica Dental Colmillo",
+    kicker: "Clínica dental",
+    headline: "Sonríe con confianza.",
+    sub: "Tratamientos personalizados para tu salud bucal.",
+    cta: "Pedir cita",
     bg: "#FFFFFF",
     services: [
-      { t: "Pan diario", d: "Masa madre y harinas ecológicas" },
-      { t: "Bollería", d: "Horneada a las 7:00" },
-      { t: "Tartas por encargo", d: "Con 48 h de antelación" },
+      { t: "Revisión dental", d: "Chequeos regulares para mantener tu salud bucal" },
+      { t: "Limpieza dental", d: "Eliminación de placa y sarro" },
+      { t: "Ortodoncia", d: "Alineación de dientes para una sonrisa perfecta" },
     ],
   },
   accent: "#C9A25E",
-  hook: "Misma panadería. Otra web.",
+  hook: "Misma clínica dental. Otra web.",
   beforeFlaws: ["No se ve bien en el móvil", "Sin botón de pedido", "Nadie sabe qué vende"],
   metric: "3×",
   metricLabel: "más encargos en el primer mes",
@@ -44,7 +44,7 @@ const Hook: React.FC<{ c: BeforeAfterConfig }> = ({ c }) => (
       <Kicker color={c.accent}>{c.biz.kicker}</Kicker>
     </Rise>
     <Rise at={5}>
-      <div style={{ fontFamily: SERIF, fontSize: 130, fontWeight: 600, lineHeight: 1.0, letterSpacing: -4, color: C.dark, marginTop: 24 }}>
+      <div style={{ fontFamily: SANS, fontSize: 130, fontWeight: 800, lineHeight: 1.0, letterSpacing: -3, color: C.dark, marginTop: 24 }}>
         {c.hook}
       </div>
     </Rise>

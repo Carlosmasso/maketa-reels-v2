@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { C, SANS, SERIF, Header, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
+import { C, SANS, Header, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
 
 export type CTAConfig = {
   lines: string[];
@@ -29,9 +29,9 @@ const Lines: React.FC<{ c: CTAConfig }> = ({ c }) => {
       ))}
       <div
         style={{
-          fontFamily: SERIF,
+          fontFamily: SANS,
           fontSize: 120,
-          fontWeight: 600,
+          fontWeight: 800,
           lineHeight: 1.02,
           letterSpacing: -3,
           color: C.blue,

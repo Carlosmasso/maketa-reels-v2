@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { C, SANS, SERIF, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
+import { C, SANS, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
 
 const TAG = "CASO REAL";
 
@@ -38,7 +38,7 @@ const Hook: React.FC<{ c: TestimonialConfig }> = ({ c }) => (
       <Kicker color={c.accent}>{c.sector}</Kicker>
     </Rise>
     <Rise at={5}>
-      <div style={{ fontFamily: SERIF, fontSize: 120, fontWeight: 600, lineHeight: 1.02, letterSpacing: -3, color: C.dark, marginTop: 24 }}>
+      <div style={{ fontFamily: SANS, fontSize: 120, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3, color: C.dark, marginTop: 24 }}>
         {c.hook}
       </div>
     </Rise>
@@ -80,7 +80,7 @@ const Quote: React.FC<{ c: TestimonialConfig }> = ({ c }) => (
   <AbsoluteFill style={{ background: C.bg, padding: "0 80px", justifyContent: "center" }}>
     <Header tag={TAG} />
     <Rise at={0}>
-      <div style={{ fontFamily: SERIF, fontStyle: "italic", fontWeight: 400, fontSize: 84, lineHeight: 1.15, letterSpacing: -1.5, color: C.dark }}>
+      <div style={{ fontFamily: SANS, fontWeight: 800, fontSize: 84, lineHeight: 1.15, letterSpacing: -3, color: C.dark }}>
         “{c.quote}”
       </div>
     </Rise>

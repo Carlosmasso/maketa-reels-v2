@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
-import { C, SANS, SERIF, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
+import { C, SANS, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration, io } from "./brand";
 
 const TAG = "EL DATO";
 
@@ -29,7 +29,7 @@ const Hook: React.FC<{ c: StatConfig }> = ({ c }) => (
   <AbsoluteFill style={{ background: C.bg, padding: "0 80px", justifyContent: "center" }}>
     <Header tag={TAG} />
     <Rise at={0}>
-      <div style={{ fontFamily: SERIF, fontSize: 116, fontWeight: 600, lineHeight: 1.02, letterSpacing: -3, color: C.dark }}>{c.hook}</div>
+      <div style={{ fontFamily: SANS, fontSize: 116, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3, color: C.dark }}>{c.hook}</div>
     </Rise>
   </AbsoluteFill>
 );
@@ -60,7 +60,7 @@ const Punch: React.FC<{ c: StatConfig }> = ({ c }) => (
       <Kicker>Traducido</Kicker>
     </Rise>
     <Rise at={6}>
-      <div style={{ fontFamily: SERIF, fontSize: 100, fontWeight: 600, lineHeight: 1.05, letterSpacing: -3, color: C.dark, marginTop: 24 }}>{c.punch}</div>
+      <div style={{ fontFamily: SANS, fontSize: 100, fontWeight: 800, lineHeight: 1.05, letterSpacing: -3, color: C.dark, marginTop: 24 }}>{c.punch}</div>
     </Rise>
   </AbsoluteFill>
 );

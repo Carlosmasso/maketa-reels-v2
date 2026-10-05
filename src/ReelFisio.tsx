@@ -1,3 +1,6 @@
+import { TransitionSeries, linearTiming } from "@remotion/transitions";
+import { fade } from "@remotion/transitions/fade";
+import { wipe } from "@remotion/transitions/wipe";
 import React from "react";
 import {
   AbsoluteFill,
@@ -5,13 +8,10 @@ import {
   interpolateColors,
   useCurrentFrame,
 } from "remotion";
-import { TransitionSeries, linearTiming } from "@remotion/transitions";
-import { fade } from "@remotion/transitions/fade";
-import { wipe } from "@remotion/transitions/wipe";
-import { C, SANS, SERIF, Cursor, EndCard, Header, Rise, ease, io } from "./brand";
+import { C, Cursor, EndCard, Header, MONO, Rise, SANS, SERIF, ease, io } from "./brand";
 import { Biz, Browser, Phone, SiteMock } from "./SiteMock";
 
-const TAG = "WEB EN 30 SEGUNDOS · 05";
+// const TAG = "WEB EN 30 SEGUNDOS · 05";
 
 export const FISIO: Biz = {
   name: "Fisio Norte",
@@ -35,20 +35,20 @@ export const FisioHook: React.FC = () => {
   const f = useCurrentFrame();
   return (
     <AbsoluteFill style={{ background: C.bg, fontFamily: SANS }}>
-      <Header tag={TAG} />
+      <Header />
       <div style={{ position: "absolute", top: 360, left: 80, right: 80 }}>
         <Rise at={0}>
-          <div style={{ fontSize: 108, fontWeight: 800, lineHeight: 1.0, letterSpacing: -4, color: C.dark }}>
+          <div style={{ fontSize: 108, fontFamily: SANS, fontWeight: 800, lineHeight: 1.0, letterSpacing: -3, color: C.dark }}>
             La web de
           </div>
         </Rise>
         <Rise at={5}>
-          <div style={{ fontSize: 108, fontWeight: 800, lineHeight: 1.0, letterSpacing: -4, color: C.dark }}>
+          <div style={{ fontSize: 108, fontFamily: SANS, fontWeight: 800, lineHeight: 1.0, letterSpacing: -3, color: C.dark }}>
             una fisio,
           </div>
         </Rise>
         <Rise at={10}>
-          <div style={{ fontSize: 108, fontWeight: 800, lineHeight: 1.05, letterSpacing: -4, color: C.blue }}>
+          <div style={{ fontSize: 108, fontFamily: SANS, fontWeight: 800, lineHeight: 1.05, letterSpacing: -3, color: C.blue }}>
             en 30 segundos.
           </div>
         </Rise>
@@ -100,8 +100,8 @@ const StepLabel: React.FC<{ from: number; to: number; n: string; t: string }> = 
         translate: `0px ${io(f, [from, from + 14], [40, 0])}px`,
       }}
     >
-      <span style={{ fontSize: 44, fontWeight: 800, color: C.blue }}>{n}</span>
-      <span style={{ fontSize: 88, fontWeight: 800, letterSpacing: -3, color: C.dark }}>{t}</span>
+      <span style={{ fontFamily: MONO, fontSize: 44, fontWeight: 700, color: C.blue }}>{n}</span>
+      <span style={{ fontSize: 88, fontFamily: SANS, fontWeight: 800, letterSpacing: -3, color: C.dark }}>{t}</span>
     </div>
   );
 };
@@ -127,7 +127,7 @@ export const FisioConfig: React.FC = () => {
   });
   return (
     <AbsoluteFill style={{ background: C.bg, fontFamily: SANS }}>
-      <Header tag={TAG} />
+      <Header />
       <StepLabel from={6} to={100} n="1" t="Color de marca" />
       <StepLabel from={100} to={160} n="2" t="Tipografía" />
       <StepLabel from={160} to={250} n="3" t="Secciones" />
@@ -245,15 +245,15 @@ export const FisioResult: React.FC = () => {
   const f = useCurrentFrame();
   return (
     <AbsoluteFill style={{ background: C.bg, fontFamily: SANS }}>
-      <Header tag={TAG} />
+      <Header />
       <div style={{ position: "absolute", top: 240, left: 80, right: 80 }}>
         <Rise at={2}>
-          <div style={{ fontSize: 96, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3, color: C.dark }}>
+          <div style={{ fontSize: 96, fontFamily: SANS, fontWeight: 800, lineHeight: 1.02, letterSpacing: -3, color: C.dark }}>
             Lista para
           </div>
         </Rise>
         <Rise at={7}>
-          <div style={{ fontSize: 96, fontWeight: 800, lineHeight: 1.05, letterSpacing: -3, color: TEAL }}>
+          <div style={{ fontSize: 96, fontFamily: SANS, fontWeight: 800, lineHeight: 1.05, letterSpacing: -3, color: TEAL }}>
             recibir citas.
           </div>
         </Rise>

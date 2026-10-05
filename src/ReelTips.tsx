@@ -1,6 +1,6 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
-import { C, SANS, SERIF, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration } from "./brand";
+import { C, SANS, MONO, Header, Kicker, Rise, EndCard, Reel, Scene, reelDuration } from "./brand";
 
 const TAG = "GUÁRDALO";
 
@@ -31,7 +31,7 @@ const Hook: React.FC<{ c: TipsConfig }> = ({ c }) => (
       <Kicker color={C.blueSoft}>{c.kicker}</Kicker>
     </Rise>
     <Rise at={5}>
-      <div style={{ fontFamily: SERIF, fontSize: 136, fontWeight: 600, lineHeight: 1.0, letterSpacing: -4, color: C.white, marginTop: 24 }}>
+      <div style={{ fontFamily: SANS, fontSize: 136, fontWeight: 800, lineHeight: 1.0, letterSpacing: -3, color: C.white, marginTop: 24 }}>
         {c.hook}
       </div>
     </Rise>
@@ -47,7 +47,7 @@ const Tip: React.FC<{ n: number; total: number; t: string; d: string }> = ({ n, 
       </div>
     </Rise>
     <Rise at={5}>
-      <div style={{ fontFamily: SERIF, fontSize: 100, fontWeight: 600, lineHeight: 1.05, letterSpacing: -3, color: C.dark, marginTop: 28 }}>{t}</div>
+      <div style={{ fontFamily: SANS, fontSize: 100, fontWeight: 800, lineHeight: 1.05, letterSpacing: -3, color: C.dark, marginTop: 28 }}>{t}</div>
     </Rise>
     <Rise at={16}>
       <div style={{ fontFamily: SANS, fontSize: 50, fontWeight: 500, lineHeight: 1.3, color: C.ink, marginTop: 40, paddingLeft: 30, borderLeft: `6px solid ${C.blue}` }}>
