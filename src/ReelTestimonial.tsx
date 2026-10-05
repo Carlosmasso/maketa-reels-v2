@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { C, SANS, MONO, Header, Kicker, Rise, EndCard, io } from "./brand";
-import { Reel, Scene, reelDuration } from "./reel";
+import { Reel, Scene, endFrames, readFrames, reelDuration } from "./reel";
 import { Avatar, Person } from "./people";
 import { BrollBg, brollFor } from "./media";
 
@@ -106,11 +106,11 @@ const Quote: React.FC<{ c: TestimonialConfig }> = ({ c }) => (
 );
 
 const scenes = (c: TestimonialConfig): Scene[] => [
-  { name: "Hook", dur: c.broll && brollFor(c.broll) ? 95 : 75, el: <Hook c={c} /> },
-  { name: "Antes", dur: 100, el: <Before c={c} /> },
-  { name: "Resultado", dur: 100, el: <Result c={c} /> },
-  { name: "Cita", dur: 150, el: <Quote c={c} />, via: c.person },
-  { name: "Cierre", dur: 110, el: <EndCard title={c.cta} sub="Diseña tu web gratis, sin registro." /> },
+  { name: "Hook", dur: Math.max(c.broll && brollFor(c.broll) ? 95 : 75, readFrames(`${c.sector} ${c.hook}`)), el: <Hook c={c} /> },
+  { name: "Antes", dur: readFrames(c.before, 30), el: <Before c={c} /> },
+  { name: "Resultado", dur: readFrames(c.metricLabel, 60), el: <Result c={c} /> },
+  { name: "Cita", dur: readFrames(`${c.quote} ${c.person.name}`, 70), el: <Quote c={c} />, via: c.person },
+  { name: "Cierre", dur: endFrames(c.cta, "Diseña tu web gratis, sin registro."), el: <EndCard title={c.cta} sub="Diseña tu web gratis, sin registro." /> },
 ];
 
 export const TESTIMONIAL_DURATION = reelDuration(scenes(EJEMPLO_TESTIMONIAL));

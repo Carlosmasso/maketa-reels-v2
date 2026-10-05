@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill } from "remotion";
 import { C, SANS, MONO, Header, Kicker, Rise, EndCard, } from "./brand";
-import { Reel, Scene, reelDuration } from "./reel";
+import { Reel, Scene, endFrames, readFrames, reelDuration } from "./reel";
 
 const TAG = "GUÁRDALO";
 
@@ -19,7 +19,7 @@ export const EJEMPLO_TIPS: TipsConfig = {
   tips: [
     { t: "No dices qué haces en 3 segundos.", d: "Titular claro arriba del todo: qué ofreces y para quién." },
     { t: "El botón de contacto está escondido.", d: "Un único botón visible, repetido al hacer scroll." },
-    { t: "Está pensada para ordenador.", d: "8 de cada 10 visitas llegan desde el móvil. Diseña para él." },
+    { t: "Está pensada para ordenador.", d: "La mayoría de visitas llegan desde el móvil. Diseña para él." },
   ],
   cta: "Corrígelos en minutos.",
   question: "¿Cuál de los tres tiene tu web? Dímelo en comentarios.",
@@ -52,7 +52,7 @@ const Tip: React.FC<{ n: number; total: number; t: string; d: string }> = ({ n, 
     <Rise at={5}>
       <div style={{ fontFamily: SANS, fontSize: 100, fontWeight: 800, lineHeight: 1.05, letterSpacing: -3, color: C.dark, marginTop: 28 }}>{t}</div>
     </Rise>
-    <Rise at={16}>
+    <Rise at={20}>
       <div style={{ fontFamily: SANS, fontSize: 50, fontWeight: 500, lineHeight: 1.3, color: C.ink, marginTop: 40, paddingLeft: 30, borderLeft: `6px solid ${C.blue}` }}>
         {d}
       </div>
@@ -61,9 +61,9 @@ const Tip: React.FC<{ n: number; total: number; t: string; d: string }> = ({ n, 
 );
 
 const scenes = (c: TipsConfig): Scene[] => [
-  { name: "Hook", dur: 70, el: <Hook c={c} /> },
-  ...c.tips.map((tip, i) => ({ name: `Tip ${i + 1}`, dur: 120, el: <Tip n={i + 1} total={c.tips.length} {...tip} /> })),
-  { name: "Cierre", dur: 120, el: <EndCard title={c.cta} sub="Diseña tu web gratis, sin registro." question={c.question} /> },
+  { name: "Hook", dur: Math.max(75, readFrames(`${c.kicker} ${c.hook}`)), el: <Hook c={c} /> },
+  ...c.tips.map((tip, i) => ({ name: `Tip ${i + 1}`, dur: readFrames(`${tip.t} ${tip.d}`, 25), el: <Tip n={i + 1} total={c.tips.length} {...tip} /> })),
+  { name: "Cierre", dur: endFrames(c.cta, "Diseña tu web gratis, sin registro.", c.question), el: <EndCard title={c.cta} sub="Diseña tu web gratis, sin registro." question={c.question} /> },
 ];
 
 export const tipsDuration = (c: TipsConfig) => reelDuration(scenes(c));

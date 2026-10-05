@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { C, SANS, Header, Rise, EndCard, io } from "./brand";
-import { Reel, Scene, reelDuration } from "./reel";
+import { Reel, Scene, endFrames, readFrames, reelDuration } from "./reel";
 
 export type CTAConfig = {
   lines: string[];
@@ -19,12 +19,12 @@ export const EJEMPLO_CTA: CTAConfig = {
 
 const Lines: React.FC<{ c: CTAConfig }> = ({ c }) => {
   const f = useCurrentFrame();
-  const last = c.lines.length * 14;
+  const last = c.lines.length * 20;
   return (
     <AbsoluteFill style={{ background: C.bg, padding: "0 80px", justifyContent: "center" }}>
       <Header tag="" />
       {c.lines.map((t, i) => (
-        <Rise key={t} at={i * 14}>
+        <Rise key={t} at={i * 20}>
           <div style={{ fontFamily: SANS, fontSize: 76, fontWeight: 700, lineHeight: 1.3, letterSpacing: -2, color: C.grey }}>{t}</div>
         </Rise>
       ))}
@@ -49,8 +49,8 @@ const Lines: React.FC<{ c: CTAConfig }> = ({ c }) => {
 };
 
 const scenes = (c: CTAConfig): Scene[] => [
-  { name: "Mensajes", dur: 110, el: <Lines c={c} /> },
-  { name: "Cierre", dur: 110, el: <EndCard title={c.title} sub={c.sub} /> },
+  { name: "Mensajes", dur: readFrames(`${c.lines.join(" ")} ${c.highlight}`, c.lines.length * 20), el: <Lines c={c} /> },
+  { name: "Cierre", dur: endFrames(c.title, c.sub), el: <EndCard title={c.title} sub={c.sub} /> },
 ];
 
 export const CTA_DURATION = reelDuration(scenes(EJEMPLO_CTA));

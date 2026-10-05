@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { C, SANS, SERIF, MONO, Header, Kicker, Rise, EndCard, io, ease } from "./brand";
-import { Reel, Scene, reelDuration } from "./reel";
+import { Reel, Scene, endFrames, readFrames, reelDuration } from "./reel";
 import { Biz, Phone, SiteMock } from "./SiteMock";
 import { Person } from "./people";
 import { BrollBg, brollFor } from "./media";
@@ -86,7 +86,7 @@ const Before: React.FC<{ c: BeforeAfterConfig }> = ({ c }) => {
       </div>
       <div style={{ position: "absolute", left: 570, right: 60, top: 600 }}>
         {c.beforeFlaws.map((t, i) => (
-          <Rise key={t} at={20 + i * 12}>
+          <Rise key={t} at={20 + i * 24}>
             <div style={{ fontFamily: SANS, fontSize: 40, fontWeight: 700, lineHeight: 1.2, color: C.ink, marginBottom: 44 }}>
               <span style={{ color: "#D64545" }}>✕ </span>
               {t}
@@ -128,11 +128,11 @@ const Impact: React.FC<{ c: BeforeAfterConfig }> = ({ c }) => (
 );
 
 const scenes = (c: BeforeAfterConfig): Scene[] => [
-  { name: "Hook", dur: 70, el: <Hook c={c} /> },
-  { name: "Antes", dur: 110, el: <Before c={c} /> },
+  { name: "Hook", dur: Math.max(75, readFrames(`${c.biz.kicker} ${c.hook}`)), el: <Hook c={c} /> },
+  { name: "Antes", dur: readFrames(c.beforeFlaws.join(" "), 20 + c.beforeFlaws.length * 24), el: <Before c={c} /> },
   { name: "Después", dur: c.host ? 160 : 130, el: <After c={c} />, via: c.host },
-  ...(c.metric ? [{ name: "Impacto", dur: 85, el: <Impact c={c} /> }] : []),
-  { name: "Cierre", dur: 110, el: <EndCard title={c.cta} sub="Diseña la nueva gratis, sin registro." /> },
+  ...(c.metric ? [{ name: "Impacto", dur: readFrames(c.metricLabel ?? "", 50), el: <Impact c={c} /> }] : []),
+  { name: "Cierre", dur: endFrames(c.cta, "Diseña la nueva gratis, sin registro."), el: <EndCard title={c.cta} sub="Diseña la nueva gratis, sin registro." /> },
 ];
 
 export const beforeAfterDuration = (c: BeforeAfterConfig) => reelDuration(scenes(c));

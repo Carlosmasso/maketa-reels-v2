@@ -1,7 +1,7 @@
 import React from "react";
 import { AbsoluteFill, useCurrentFrame } from "remotion";
 import { C, SANS, MONO, Header, Kicker, Rise, EndCard, io } from "./brand";
-import { Reel, Scene, reelDuration } from "./reel";
+import { Reel, Scene, endFrames, readFrames, reelDuration } from "./reel";
 
 const TAG = "EL DATO";
 
@@ -67,10 +67,10 @@ const Punch: React.FC<{ c: StatConfig }> = ({ c }) => (
 );
 
 const scenes = (c: StatConfig): Scene[] => [
-  { name: "Hook", dur: 70, el: <Hook c={c} /> },
-  { name: "Dato", dur: 130, el: <Stat c={c} /> },
-  { name: "Traducción", dur: 100, el: <Punch c={c} /> },
-  { name: "Cierre", dur: 110, el: <EndCard title={c.cta} sub="Diseña la tuya gratis, sin registro." /> },
+  { name: "Hook", dur: Math.max(75, readFrames(c.hook)), el: <Hook c={c} /> },
+  { name: "Dato", dur: Math.max(130, readFrames(c.label, 70)), el: <Stat c={c} /> },
+  { name: "Traducción", dur: readFrames(c.punch, 40), el: <Punch c={c} /> },
+  { name: "Cierre", dur: endFrames(c.cta, "Diseña la tuya gratis, sin registro."), el: <EndCard title={c.cta} sub="Diseña la tuya gratis, sin registro." /> },
 ];
 
 export const STAT_DURATION = reelDuration(scenes(EJEMPLO_STAT));
