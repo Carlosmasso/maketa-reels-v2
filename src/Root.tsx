@@ -1,4 +1,4 @@
-import { Composition, Folder } from "remotion";
+import { Composition, Folder, Still } from "remotion";
 import { ReelFisio, FISIO_DURATION } from "./ReelFisio";
 import { ReelPrecio, PRECIO_DURATION } from "./ReelPrecio";
 import { ReelTestimonial, TESTIMONIAL_DURATION, EJEMPLO_TESTIMONIAL } from "./ReelTestimonial";
@@ -8,6 +8,8 @@ import { ReelStat, STAT_DURATION, EJEMPLO_STAT } from "./ReelStat";
 import { ReelCTA, CTA_DURATION, EJEMPLO_CTA } from "./ReelCTA";
 import { ReelPersona, personaDuration } from "./ReelPersona";
 import { CASOS_BEFOREAFTER, CASOS_PERSONA, CASOS_TIPS } from "./casos";
+import { Portada } from "./Portada";
+import { PORTADAS } from "./portadas";
 
 const V = { fps: 30, width: 1080, height: 1920 };
 
@@ -49,6 +51,11 @@ export const RemotionRoot: React.FC = () => (
     <Folder name="Personas">
       {CASOS_PERSONA.map(({ id, config }) => (
         <Composition key={id} id={id} component={ReelPersona} durationInFrames={personaDuration(config)} defaultProps={{ config }} {...V} />
+      ))}
+    </Folder>
+    <Folder name="Portadas">
+      {Object.entries(PORTADAS).map(([id, cover]) => (
+        <Still key={id} id={`Portada-${id}`} component={Portada} defaultProps={cover} width={1080} height={1920} />
       ))}
     </Folder>
   </>
